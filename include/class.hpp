@@ -34,18 +34,19 @@ public:
      * 
      * @return point 
      */
-    const int getX();
+    int getX() const;
 
      /**
      * @brief Get the Value y (accesseur)
+     * @remark const permet de s'assurer que la valeur ne sera pas changer 
      * 
      * @return point 
      */
-    const int getY();
+    int getY() const;
 
     /**
      * @brief Set the Value object (mutateur)
-     * 
+     *      
      * @param value 
      */
     void setValue(point p);

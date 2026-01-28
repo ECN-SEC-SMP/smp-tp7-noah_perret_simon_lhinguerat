@@ -22,6 +22,11 @@ void point::translater(point &p){
 }
 
 
-const int::getX(){
-    return 
+ int point::getX() const{
+    return _x;
+}
+
+
+int point::getY() const{
+    return _y;
 }
