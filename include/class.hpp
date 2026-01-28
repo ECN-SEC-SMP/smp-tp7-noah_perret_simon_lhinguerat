@@ -5,36 +5,43 @@ class point {
 public:
 
     /**
-     * @brief create a point at origin
+     * @brief Create a point at origin
      * 
      */
     point();
 
     /**
-     * @brief create a point at fice coordonate
+     * @brief Create a point at fice coordonate
      * 
      */
     point(int x, int y);
 
 
     /**
-     * @brief create a point at fice coordonate
+     * @brief Duplicate a point
      * 
      */
-    point(const point &);
+    point(const point &p);
     
     // Destructor
     ~point();
 
     // translater
-    void translater();
+    void translater(point &p);
     
     /**
-     * @brief Get the Value object (accesseur)
+     * @brief Get the Value x (accesseur)
      * 
      * @return point 
      */
-    point getValue();
+    const int getX();
+
+     /**
+     * @brief Get the Value y (accesseur)
+     * 
+     * @return point 
+     */
+    const int getY();
 
     /**
      * @brief Set the Value object (mutateur)
@@ -45,8 +52,8 @@ public:
     
 private:
     // Member variables
-    int x;
-    int y;
+    int _x;
+    int _y;
 };
 
 #endif // CLASS_H
