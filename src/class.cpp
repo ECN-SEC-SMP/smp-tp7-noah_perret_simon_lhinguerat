@@ -30,3 +30,18 @@ void point::translater(point &p){
 int point::getY() const{
     return _y;
 }
+void point::setX(int NewX){
+    _x=NewX;
+
+}
+
+void point::setY(int NewY){
+    _y=NewY;
+}
+
+void point::setXandY(int NewX,int NewY){
+    _x=NewX;
+    _y=NewY;
+}
+
+

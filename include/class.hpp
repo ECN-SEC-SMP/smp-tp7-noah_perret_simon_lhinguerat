@@ -45,11 +45,36 @@ public:
     int getY() const;
 
     /**
+<<<<<<< HEAD
      * @brief Set the Value object (mutateur)
      *      
      * @param value 
+=======
+     * @brief Set the new x (mutateur)
+     * 
+     * @param NewX 
+>>>>>>> simon
      */
-    void setValue(point p);
+    void setX(int NewX);
+
+    /**
+     * @brief Set the new x (mutateur)
+     * 
+     * @param NewY 
+     */
+    void setY(int NewY);
+
+    /**
+     * @brief Set the new x (mutateur)
+     * 
+     * @param NewX
+     * @param NewY
+     */
+    void setXandY(int NewX,int NewY);
+
+
+
+
     
 private:
     // Member variables
