@@ -1,22 +1,54 @@
 #ifndef CLASS_H
 #define CLASS_H
 
-class MyClass {
+class point {
 public:
-    // Constructor
-    MyClass();
+
+    /**
+     * @brief create a point at origin
+     * 
+     */
+    point();
+
+
+    /**
+     * @brief create a point at fice coordonate
+     * 
+     */
+    point(int x, int y);
+
+
+
+    /**
+     * @brief create a point at fice coordonate
+     * 
+     */
+    point(const point &);
     
     // Destructor
-    ~MyClass();
+    ~point();
+
+    // translater
+    void translater();
     
-    // Member functions
-    void doSomething();
-    int getValue() const;
-    void setValue(int value);
+    /**
+     * @brief Get the Value object (accesseur)
+     * 
+     * @return point 
+     */
+    point getValue();
+
+    /**
+     * @brief Set the Value object (mutateur)
+     * 
+     * @param value 
+     */
+    void setValue(point p);
     
 private:
     // Member variables
-    int m_value;
+    int x;
+    int y;
 };
 
 #endif // CLASS_H
