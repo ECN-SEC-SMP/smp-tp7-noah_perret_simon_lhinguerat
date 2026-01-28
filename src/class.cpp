@@ -22,6 +22,17 @@ void point::translater(point &p){
 }
 
 
-const int::getX(){
-    return 
+void point::setX(int NewX){
+    _x=NewX;
 }
+
+void point::setY(int NewY){
+    _y=NewY;
+}
+
+void point::setXandY(int NewX,int NewY){
+    _x=NewX;
+    _y=NewY;
+}
+
+
