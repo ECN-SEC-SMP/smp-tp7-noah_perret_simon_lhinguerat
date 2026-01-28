@@ -10,13 +10,11 @@ public:
      */
     point();
 
-
     /**
      * @brief create a point at fice coordonate
      * 
      */
     point(int x, int y);
-
 
 
     /**
