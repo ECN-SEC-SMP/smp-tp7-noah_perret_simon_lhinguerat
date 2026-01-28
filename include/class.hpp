@@ -1,5 +1,10 @@
+#include <iostream>
+
 #ifndef CLASS_H
 #define CLASS_H
+using namespace std;
+
+
 
 class point {
 public:
@@ -45,15 +50,15 @@ public:
     int getY() const;
 
     /**
-<<<<<<< HEAD
+
      * @brief Set the Value object (mutateur)
      *      
      * @param value 
-=======
+
      * @brief Set the new x (mutateur)
      * 
      * @param NewX 
->>>>>>> simon
+
      */
     void setX(int NewX);
 
@@ -72,7 +77,13 @@ public:
      */
     void setXandY(int NewX,int NewY);
 
-
+    /**
+     * @brief 
+     * 
+     * @param p 
+     */
+    void operator+=( point const&p);
+    
 
 
     
@@ -82,4 +93,52 @@ private:
     int _y;
 };
 
+class rectangle {
+public:
+
+rectangle();
+
+rectangle(point const& p, int L, int l);
+
+int getX();
+int getY();
+int getL();
+int getl();
+
+void operator+=(point const&p);
+
+
+
+
+private:
+point encrage;
+int longueur;
+int largeur;
+};
+
+
+
+
+/**
+     * @brief 
+     * 
+     * @param s 
+     * @param p 
+     * @return ostream& 
+     */
+    ostream& operator<<(ostream&s,point const&p);
+
+
+    /**
+     * @brief 
+     * 
+     * @param s 
+     * @param p 
+     * @return ostream& 
+     */
+    ostream& operator<<(ostream&s,rectangle const&rect);
 #endif // CLASS_H
+
+
+
+
