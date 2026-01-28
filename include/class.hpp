@@ -45,15 +45,9 @@ public:
     int getY() const;
 
     /**
-<<<<<<< HEAD
-     * @brief Set the Value object (mutateur)
-     *      
-     * @param value 
-=======
      * @brief Set the new x (mutateur)
      * 
      * @param NewX 
->>>>>>> simon
      */
     void setX(int NewX);
 

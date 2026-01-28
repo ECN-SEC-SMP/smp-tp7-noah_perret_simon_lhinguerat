@@ -1,9 +1,7 @@
 #include "../include/class.hpp"
 
 
-point::point() : _x(0),_y(0)
-{
-    
+point::point() : _x(0),_y(0){   
 }
 
 point::point(int x, int y){
@@ -14,6 +12,10 @@ point::point(int x, int y){
 point::point(const point &p){
     _x = p._x;
     _y = p._y;
+}
+
+point::~point(){
+    //nothing to do
 }
 
 void point::translater(point &p){
@@ -30,6 +32,7 @@ void point::translater(point &p){
 int point::getY() const{
     return _y;
 }
+
 void point::setX(int NewX){
     _x=NewX;
 
