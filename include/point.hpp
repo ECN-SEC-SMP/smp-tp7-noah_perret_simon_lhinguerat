@@ -1,5 +1,5 @@
-#ifndef CLASS_H
-#define CLASS_H
+#ifndef POINT_H
+#define POINT_H
 
 class point {
 public:
@@ -27,7 +27,7 @@ public:
     ~point();
 
     // translater
-    void translater(point &p);
+    virtual void translater(point &p);
     
     /**
      * @brief Get the Value x (accesseur)
@@ -76,4 +76,4 @@ private:
     int _y;
 };
 
-#endif // CLASS_H
+#endif // POINT_H

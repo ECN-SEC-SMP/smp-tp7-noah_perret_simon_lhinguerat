@@ -1,5 +1,5 @@
 #include "unity.h"
-#include "class.hpp"
+#include "forme.hpp"
 
 // Ces fonctions sont appelées avant et après CHAQUE test
 void setUp(void) {

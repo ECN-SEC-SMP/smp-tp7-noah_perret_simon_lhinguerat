@@ -1,5 +1,4 @@
-#include "../include/class.hpp"
-
+#include "point.hpp"
 
 point::point() : _x(0),_y(0){   
 }
