@@ -64,6 +64,10 @@ public:
      * @param NewY 
      */
     void setOriginXY(int NewX,int NewY);
+
+    void operator+=(point const&p);
+
+
 };
 
 #endif // FORME_H

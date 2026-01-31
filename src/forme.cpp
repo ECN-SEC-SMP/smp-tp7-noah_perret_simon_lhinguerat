@@ -36,5 +36,13 @@ void Forme::translater(point &p){
     //_centre.setXandY(_centre.getX()+p.getX(),_centre.getY()+p.getY());
 }
 
+void Forme::operator+=(point const&p){
+    _centre.setXandY(p.getX,p.getY);
+}
+
+ostream& operator<<(ostream&, forme const&form){
+    s <<"("<<form.getOriginX()<< ":" << form.getOriginX() << ")";
+    return s;
+}
 
 
