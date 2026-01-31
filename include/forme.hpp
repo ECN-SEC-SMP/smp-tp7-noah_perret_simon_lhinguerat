@@ -2,6 +2,9 @@
 #define FORME_H
 
 #include "point.hpp"
+#include <iostream>
+
+using namespace std;
 
 class Forme {
 private:
@@ -69,5 +72,8 @@ public:
 
 
 };
+
+ostream& operator<<(std::ostream&, Forme const&form);
+
 
 #endif // FORME_H
