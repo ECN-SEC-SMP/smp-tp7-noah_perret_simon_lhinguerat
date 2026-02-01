@@ -1,7 +1,7 @@
 #include "cercle.hpp"
 
 
-Cercle::Cercle(point p, int r)
+Cercle::Cercle(point p, double r)
     :Forme(p)
 {
     _rayon = r;
@@ -11,12 +11,12 @@ Cercle::~Cercle(){
 
 }
 
-int Cercle::getRayon() const{
+double Cercle::getRayon() const{
     return _rayon;
 }
 
     
-void Cercle::setRayon(int NewR){
+void Cercle::setRayon(double NewR){
     _rayon = NewR;
 }
 

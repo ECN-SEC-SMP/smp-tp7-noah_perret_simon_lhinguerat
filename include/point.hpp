@@ -27,7 +27,7 @@ public:
     ~point();
 
     // translater
-    virtual void translater(point &p);
+    void translater(const point &p);
     
     /**
      * @brief Get the Value x (accesseur)

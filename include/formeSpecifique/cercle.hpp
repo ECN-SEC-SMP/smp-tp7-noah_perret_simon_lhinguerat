@@ -1,5 +1,5 @@
-#ifndef RECTANGLE_H
-#define RECTANGLE_H
+#ifndef CERCLE_H
+#define CERCLE_H
 
 #include "ostream"
 #include "forme.hpp"
@@ -13,17 +13,17 @@ class Cercle : public Forme Forme {
 private:
 
 protected:
-    int _rayon;
+    double _rayon;
     
 public:
 
-    Cercle(point p, int r);
+    Cercle(point p, double r);
 
     ~Cercle();
 
-    int getRayon() const;
+    double getRayon() const;
 
-    void setRayon(int NewR);
+    void setRayon(double NewR);
 
     double perimetre();   
 

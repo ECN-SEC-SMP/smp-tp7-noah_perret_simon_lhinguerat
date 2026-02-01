@@ -1,6 +1,6 @@
 # === Configuration ===
 CXX      = g++
-INCLUDES = -I./include -I./test
+INCLUDES = -I./include -I./test -I./include/formeSpecifique
 
 # === Cibles ===
 EXEC_MAIN = main
@@ -13,7 +13,8 @@ EXEC_MKDIR_BUILD = folder_build
 OBJ_DIR   = ./build
 
 #fichier nécessaire au 2
-OBJS_BOTH = $(OBJ_DIR)/forme.o $(OBJ_DIR)/point.o 
+OBJS_BOTH = $(OBJ_DIR)/forme.o $(OBJ_DIR)/point.o  $(OBJ_DIR)/formeSpecifique/carre.o  $(OBJ_DIR)/formeSpecifique/cercle.o $(OBJ_DIR)/formeSpecifique/rectangle.o 
+
 
 #fichier néssesaire au main
 OBJS_MAIN   = $(OBJ_DIR)/main.o  $(OBJS_BOTH)
@@ -28,6 +29,7 @@ all: $(EXEC_MKDIR_BUILD) $(EXEC_MAIN)  $(EXEC_TEST)
  #Création du fichier build
 $(EXEC_MKDIR_BUILD):
 	mkdir -p build 
+	mkdir -p build/formeSpecifique
 
 #link des fichier .o du main					
 $(EXEC_MAIN): $(OBJS_MAIN)					
