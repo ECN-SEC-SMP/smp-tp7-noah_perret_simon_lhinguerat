@@ -5,12 +5,14 @@
 
 class Forme {
 private:
+
+protected:
     point _centre;
     
 public:
 
     /**
-     * @brief Create a point at origin
+     * @brief Create a forme at origin
      * 
      */
     Forme(point p);
@@ -64,6 +66,11 @@ public:
      * @param NewY 
      */
     void setOriginXY(int NewX,int NewY);
+
+    //méthodes abstraite
+    virtual double perimetre() = 0;   
+
+    virtual double surface() = 0; 
 };
 
 #endif // FORME_H
