@@ -12,10 +12,13 @@ EXEC_MKDIR_BUILD = folder_build
 #chemin d'accès :
 OBJ_DIR   = ./build
 
+#fichier nécessaire au 2
+OBJS_BOTH = $(OBJ_DIR)/forme.o $(OBJ_DIR)/point.o 
+
 #fichier néssesaire au main
-OBJS_MAIN   = $(OBJ_DIR)/main.o $(OBJ_DIR)/class.o 
+OBJS_MAIN   = $(OBJ_DIR)/main.o  $(OBJS_BOTH)
 #fichier néssesaire au test
-OBJS_TEST   = $(OBJ_DIR)/testClass.o $(OBJ_DIR)/unity.o  $(OBJ_DIR)/class.o 
+OBJS_TEST   = $(OBJ_DIR)/testClass.o $(OBJ_DIR)/unity.o  $(OBJS_BOTH)
 
 
 # === Régles ===
@@ -43,7 +46,7 @@ $(EXEC_TEST): $(OBJS_TEST)
 
 # Compilation des fichiers (générale)
 # On dit à Make où chercher les fichiers sources (.cpp et .c)
-vpath %.cpp ./src ./test .
+vpath %.cpp ./src  ./src/formeSpecifique  ./test .
 $(OBJ_DIR)/%.o: %.cpp 
 # $< correspond à la source '%.cpp' (ex :main.cpp) 
 # $@ correspond à la target '$(OBJ_DIR)/%' (ex : ./build/main.o)
