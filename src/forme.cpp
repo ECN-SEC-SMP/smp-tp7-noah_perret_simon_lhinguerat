@@ -1,5 +1,7 @@
 #include "forme.hpp"
 
+
+
 Forme::Forme(point p){
     //_centre.setXandY(p.getX(),p.getY());
     _centre = p;
@@ -36,5 +38,13 @@ void Forme::translater(point &p){
     //_centre.setXandY(_centre.getX()+p.getX(),_centre.getY()+p.getY());
 }
 
+void Forme::operator+=(point const&p){
+    _centre.setXandY(p.getX(),p.getY());
+}
+
+ostream& operator<<(ostream& s, Forme const&form){
+    s <<"("<<form.getOriginX()<< ":" << form.getOriginY() << ")";
+    return s;
+}
 
 

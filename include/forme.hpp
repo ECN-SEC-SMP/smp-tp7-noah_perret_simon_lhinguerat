@@ -2,10 +2,11 @@
 #define FORME_H
 
 #include "point.hpp"
+#include <iostream>
+
+using namespace std;
 
 class Forme {
-private:
-
 protected:
     point _centre;
     
@@ -67,10 +68,16 @@ public:
      */
     void setOriginXY(int NewX,int NewY);
 
+    void operator+=(point const&p);
+
+
     //méthodes abstraite
     virtual double perimetre() = 0;   
 
     virtual double surface() = 0; 
 };
+
+ostream& operator<<(std::ostream&, Forme const&form);
+
 
 #endif // FORME_H
