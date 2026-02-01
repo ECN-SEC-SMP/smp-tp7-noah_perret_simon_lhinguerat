@@ -43,7 +43,7 @@ void Forme::operator+=(point const&p){
 }
 
 ostream& operator<<(ostream& s, Forme const&form){
-    s <<"("<<form.getOriginX()<< ":" << form.getOriginX() << ")";
+    s <<"("<<form.getOriginX()<< ":" << form.getOriginY() << ")";
     return s;
 }
 

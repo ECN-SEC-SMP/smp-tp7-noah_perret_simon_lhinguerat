@@ -7,7 +7,7 @@
 using namespace std;
 
 class Forme {
-private:
+protected:
     point _centre;
     
 public:
