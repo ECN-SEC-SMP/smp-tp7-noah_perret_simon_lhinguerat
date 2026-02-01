@@ -9,7 +9,7 @@ using namespace std;
 #define PI 3.14
 
 
-class Cercle :public Forme {
+class Cercle : public Forme Forme {
 private:
 
 protected:
