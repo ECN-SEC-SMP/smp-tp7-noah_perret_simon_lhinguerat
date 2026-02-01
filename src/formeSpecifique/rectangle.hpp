@@ -7,7 +7,7 @@
 using namespace std;
 
 
-class Rectangle : Forme {
+class Rectangle : public Forme {
 private:
 
 protected:

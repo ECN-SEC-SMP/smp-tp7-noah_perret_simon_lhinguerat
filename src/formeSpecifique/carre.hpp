@@ -7,7 +7,7 @@
 using namespace std;
 
 
-class Carre : Rectangle {
+class Carre :public Rectangle {
 private:
 
 protected:

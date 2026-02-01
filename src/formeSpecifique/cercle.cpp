@@ -1,12 +1,15 @@
 #include "cercle.hpp"
 
 
-Cercle::Cercle(point p, int r){
-    _centre = p;
+Cercle::Cercle(point p, int r)
+    :Forme(p)
+{
     _rayon = r;
 }
 
-Cercle::~Cercle();
+Cercle::~Cercle(){
+
+}
 
 int Cercle::getRayon() const{
     return _rayon;
@@ -18,17 +21,17 @@ void Cercle::setRayon(int NewR){
 }
 
     
-float Cercle::perimetre(){
-    return 2*PI*_rayon
+double Cercle::perimetre(){
+    return 2*PI*_rayon;
 }  
 
-float Cercle::surface(){
+double Cercle::surface(){
     return PI*_rayon*_rayon;
 }
 
 
-ostream& operator<<(ostream&, Cercle const&cercl){
-    s <<"("<<"Type : Cercle , origine : "<< "("<<cercl.getOriginX<<":"<<cercl.getOriginY<<")"
+ostream& operator<<(ostream& s, Cercle const&cercl){
+    s <<"("<<"Type : Cercle , origine : "<< "("<<cercl.getOriginX()<<":"<<cercl.getOriginY()<<")"
       << ",rayon : "<< cercl.getRayon() <<")";
     return s;
 }
