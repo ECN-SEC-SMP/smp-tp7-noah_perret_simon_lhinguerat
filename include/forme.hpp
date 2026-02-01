@@ -13,7 +13,7 @@ protected:
 public:
 
     /**
-     * @brief Create a point at origin
+     * @brief Create a forme at origin
      * 
      */
     Forme(point p);
@@ -71,6 +71,10 @@ public:
     void operator+=(point const&p);
 
 
+    //méthodes abstraite
+    virtual double perimetre() = 0;   
+
+    virtual double surface() = 0; 
 };
 
 ostream& operator<<(std::ostream&, Forme const&form);
