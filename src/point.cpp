@@ -17,7 +17,7 @@ point::~point(){
     //nothing to do
 }
 
-void point::translater(point &p){
+void point::translater(const point  &p){
     _x += p._x;
     _y += p._y;
 }

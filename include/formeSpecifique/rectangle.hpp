@@ -11,7 +11,7 @@ class Rectangle : public Forme {
 private:
 
 protected:
-    int _largeur, _longueur;
+    double _largeur, _longueur;
     
 public:
 
@@ -19,7 +19,7 @@ public:
      * @brief Create a Rectangle at origin of p
      * 
      */
-    Rectangle(int longueur, int largeur, point p);
+    Rectangle(double longueur, double largeur, point p);
 
     
     /**
@@ -31,23 +31,23 @@ public:
     /**
      * @brief Get the Longueur object
      * 
-     * @return int 
+     * @return double 
      */
-    int getLongueur() const;
+    double getLongueur() const;
 
     /**
      * @brief Get the Largeur rectangle
      * 
-     * @return int 
+     * @return double 
      */
-    int getLargeur() const;
+    double getLargeur() const;
 
     /**
      * @brief Set the Longueur rectangle
      * 
      * @param NewL
      */
-    void setLongueur(int NewL);
+    void setLongueur(double NewL);
 
 
     /**
@@ -55,7 +55,7 @@ public:
      * 
      * @param NewL
      */
-    void setLargeur(int NewL);
+    void setLargeur(double NewL);
 
    
     /**

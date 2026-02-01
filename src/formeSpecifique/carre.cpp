@@ -1,15 +1,18 @@
 #include "carre.hpp"
 
 
-Carre::Carre(int longueur, point p)
+Carre::Carre(double longueur, point p)
     :Rectangle(longueur,longueur,p)
 {
 
 }
 
+Carre::~Carre(){
+    //Nothing to do 
+}   
 
 
-ostream& operator<<(ostream& s, Rectangle const&rect){
-    s <<"("<<"Type : Carre , longueur : "<< rect.getLongueur() << ")";
+ostream& operator<<(ostream& s, Carre const&carre){
+    s <<"("<<"Type : Carre , longueur : "<< carre.getLongueur() << ")";
     return s;
 }

@@ -1,6 +1,6 @@
 #include "rectangle.hpp"
 
-Rectangle::Rectangle(int longueur, int largeur, point p)
+Rectangle::Rectangle(double longueur, double largeur, point p)
     : Forme(p) // Appel du constructeur de la classe mère
 {
     _longueur = longueur;
@@ -12,20 +12,20 @@ Rectangle::~Rectangle(){
     //Nothing to do
 }
 
-int Rectangle::getLongueur() const{
+double Rectangle::getLongueur() const{
     return _longueur;
 }
 
 
-int Rectangle::getLargeur() const{
+double Rectangle::getLargeur() const{
     return _largeur;
 }
 
-void Rectangle::setLongueur(int NewL){
+void Rectangle::setLongueur(double NewL){
     _longueur = NewL;
 }
 
-void Rectangle::setLargeur(int NewL){
+void Rectangle::setLargeur(double NewL){
     _largeur = NewL;
 }
 
@@ -39,7 +39,6 @@ double Rectangle::perimetre(){
 double Rectangle::surface(){
     return _largeur * _longueur;
 } 
-
 
 
 ostream& operator<<(ostream& s, Rectangle const&rect){

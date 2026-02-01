@@ -16,14 +16,14 @@ protected:
 public:
 
     /**
-     * @brief Create a Rectangle at origin of p
+     * @brief Create a Carre at origin of p
      * 
      */
-    Carre(int longueur, point p);
+    Carre(double longueur, point p);
 
     
     /**
-     * @brief Destroy the Forme object
+     * @brief Destroy the Carre object
      * 
      */
     ~Carre();
