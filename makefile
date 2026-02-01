@@ -13,7 +13,7 @@ EXEC_MKDIR_BUILD = folder_build
 OBJ_DIR   = ./build
 
 #fichier nécessaire au 2
-OBJS_BOTH = $(OBJ_DIR)/forme.o $(OBJ_DIR)/point.o  $(OBJ_DIR)/formeSpecifique/carre.o  $(OBJ_DIR)/formeSpecifique/cercle.o $(OBJ_DIR)/formeSpecifique/rectangle.o 
+OBJS_BOTH = $(OBJ_DIR)/forme.o $(OBJ_DIR)/point.o  $(OBJ_DIR)/formeSpecifique/carre.o  $(OBJ_DIR)/formeSpecifique/cercle.o $(OBJ_DIR)/formeSpecifique/rectangle.o $(OBJ_DIR)/listeforme.o
 
 
 #fichier néssesaire au main

@@ -4,6 +4,7 @@
 #include "carre.hpp"
 #include "cercle.hpp"
 #include "rectangle.hpp"
+#include "listeforme.hpp"
 
 // Ces fonctions sont appelées avant et après CHAQUE test
 void setUp(void) {
@@ -146,6 +147,49 @@ void test_cercle_translation(void) {
     TEST_ASSERT_EQUAL_INT(5, c.getOriginY());
 }
 
+void test_liste_ajout_et_surface(void) {
+    ListeForme maListe;
+    
+    // Ajout d'un carré de 10x10 (Surface 100)
+    point p1(0, 0);
+    maListe.addForme(new Carre(10.0, p1));
+    
+    // Ajout d'un cercle de rayon 5 (Surface ~78.5)
+    point p2(10, 10);
+    maListe.addForme(new Cercle(p2, 5.0));
+    
+    // Test de la surface totale (100 + 3.14 * 25)
+    double attendu = 100.0 + (3.14 * 25.0);
+    TEST_ASSERT_EQUAL_FLOAT(attendu, maListe.surface());
+}
+
+void test_liste_suppression(void) {
+    ListeForme maListe;
+    maListe.addForme(new Rectangle(10, 5, point(0,0)));
+    maListe.addForme(new Carre(5, point(10,10)));
+        
+    maListe.suprForme(0); // Supprime le rectangle
+    
+    // Il ne doit rester que le carré (surface 25)
+    TEST_ASSERT_EQUAL_FLOAT(25.0, maListe.surface());
+}
+
+void test_liste_boite_englobante(void) {
+    ListeForme maListe;
+    // Un carré au centre (0,0) de côté 2 -> Limites X: [-1, 1], Y: [-1, 1]
+    maListe.addForme(new Carre(2.0, point(0,0)));
+    
+    // Un cercle au centre (10,10) de rayon 2 -> Limites X: [8, 12], Y: [8, 12]
+    maListe.addForme(new Cercle(point(10,10), 2.0));
+    
+    Rectangle b = maListe.boite();
+    
+    // La boîte doit aller de X=-1 à X=12 (Longueur 13)
+    // Et de Y=-1 à Y=12 (Largeur 13)
+    TEST_ASSERT_EQUAL_FLOAT(13.0, b.getLongueur());
+    TEST_ASSERT_EQUAL_FLOAT(13.0, b.getLargeur());
+}
+
 // --- MAIN ---
 int main(void) {
     UNITY_BEGIN();
@@ -165,6 +209,11 @@ int main(void) {
     RUN_TEST(test_cercle_initialization);
     RUN_TEST(test_cercle_geometry);
     RUN_TEST(test_cercle_translation);
+
+    //test class
+    RUN_TEST(test_liste_ajout_et_surface);
+    RUN_TEST(test_liste_suppression);
+    RUN_TEST(test_liste_boite_englobante);
 
 
     return UNITY_END();

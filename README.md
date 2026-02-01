@@ -1,19 +1,22 @@
-# Rapport de TP5 - Arbre généalogique
+# Rapport de TP7 - Formes géométriques (héritage & polymorphisme)
 
-**Nom :** PERRET Noah & L'HINGUERAT Simon 
+**Nom :** PERRET Noah & L'HINGUERAT Simon
 
 **Groupe :** SEC28
 
-**Date :** 18 Janvier 2026  
+**Date :** 1 février 2026
 
 ## Compilation et exécution
 
 ```bash
-# Compilation
+# Compilation (main + tests)
 make
 
 # Exécution du binaire principal
 ./main
+
+# Exécution des tests unitaires
+./testClass
 
 # Nettoyage
 make clean
@@ -21,130 +24,215 @@ make clean
 
 ## Préambule : objectifs du projet
 
-L'application construit et manipule un arbre généalogique :
-- création de personnes et gestion des mariages
-- vérification de liens de parenté (ancêtre, frère/sœur)
-- calcul de la hauteur d'arbre
-- affichage textuel et graphique (style « tree »)
-- sauvegarde / chargement sur disque.
+Ce TP met en place une hiérarchie de formes 2D et une liste polymorphe :
+- classe `point` pour les coordonnées et la translation
+- classe abstraite `Forme` (centre, translation, `surface()` et `perimetre()`)
+- classes dérivées : `Rectangle`, `Carre`, `Cercle`
+- classe `ListeForme` pour agréger des formes, calculer la surface totale et la boîte englobante.
 
 # 1 - Structures de données
 
-### `sexType`
-```cpp
-enum sexType { homme = 0, femme = 1 };
-```
+### `point`
+Fichier : `include/point.hpp` — implémentation dans `src/point.cpp`.
 
-### `Personne`
+Classe de base représentant un point 2D :
 ```cpp
-struct Personne {
-    string nom;
-    string prenom;
-    int annee;
-    u_int16_t id;
-    sexType sexe;
-    Personne* conjoint;
-    Personne* ParentH;
-    Personne* ParentF;
+class point {
+private:
+    int _x;
+    int _y;
+public:
+    point();           // Constructeur par défaut (0, 0)
+    point(int x, int y);  // Constructeur paramétré
+    point(const point &p); // Constructeur de copie
+    ~point();
+    
+    int getX() const;
+    int getY() const;
+    void setX(int NewX);
+    void setY(int NewY);
+    void setXandY(int NewX, int NewY);
+    void translater(const point &p); // Addition vectorielle
 };
 ```
-Utilisée en mémoire pour représenter chaque individu et ses liens (parents/pacsé).
 
-### `PersonneWithID`
+### `Forme`
+Fichier : `include/forme.hpp` — implémentation dans `src/forme.cpp`.
+
+Classe abstraite mère pour toutes les formes :
 ```cpp
-struct PersonneWithID {
-    string nom;
-    string prenom;
-    int annee;
-    u_int16_t id;
-    sexType sexe;
-    u_int16_t conjointId;
-    u_int16_t ParentHId;
-    u_int16_t ParentFId;
+class Forme {
+protected:
+    point _centre;
+public:
+    Forme(point p);
+    ~Forme();
+    
+    void translater(point &p);
+    int getOriginX() const;
+    int getOriginY() const;
+    void setOriginX(int NewX);
+    void setOriginY(int NewY);
+    void setOriginXY(int NewX, int NewY);
+    void operator+=(point const&p);
+    
+    virtual double perimetre() = 0;   // Méthode abstraite
+    virtual double surface() = 0;     // Méthode abstraite
 };
 ```
-Format sérialisable pour la sauvegarde/chargement des arbres (références par identifiants).
 
-# 2 - Utilitaires (personnes)
+# 2 - Formes spécifiques
 
-Fichier : `include/utilitaire.h` — implémentation dans `src/utilitaire.cpp`.
+### `Rectangle`
+Fichier : `include/formeSpecifique/rectangle.hpp` — implémentation dans `src/formeSpecifique/rectangle.cpp`.
 
-#### Prototypes principaux
+Classe rectangle héritant de `Forme` :
 ```cpp
-Personne* creerPersonne(string nom, string prenom, int annee, sexType sexe, u_int16_t id);
-void mariagePersonne(Personne* p1, Personne* p2);
-void afficherPersonne(Personne* p);
-bool isMemePersonne(Personne* p1, Personne* p2);
-bool Ancetre(Personne* cible, Personne* chercher);
-bool isMariagePossible(Personne* p1, Personne* p2);
-int  calculHauteurArbre_rec(Personne* racine);
-bool isFrereSoeur(Personne* p1, Personne* p2);
-void afficherArbre_rec(Personne* racine);
-void afficherArbreGraphique(Personne* racine, std::string indent = "", bool estDernier = true);
+class Rectangle : public Forme {
+protected:
+    double _largeur, _longueur;
+public:
+    Rectangle(double longueur, double largeur, point p);
+    ~Rectangle();
+    
+    double getLongueur() const;
+    double getLargeur() const;
+    void setLongueur(double NewL);
+    void setLargeur(double NewL);
+    
+    virtual double perimetre();   // 2 * (longueur + largeur)
+    virtual double surface();     // longueur * largeur
+};
 ```
 
-#### Résumé des rôles
-- `creerPersonne` : alloue et initialise une personne avec liens vides.
-- `mariagePersonne` : lie deux personnes si l'union est autorisée (majorité, pas d'ancêtre commun direct ni fratrie).
-- `afficherPersonne` : affiche civilité, parents et conjoint.
-- `isMemePersonne` : comparaison stricte des champs identité.
-- `Ancetre` : détecte récursivement si une personne est l'ancêtred'une autre personne.    
-- `isMariagePossible` : règle de mariage (majorité, pas de consanguinité directe ni fratrie).
-- `calculHauteurArbre_rec` : hauteur maximale de l'arbre (profondeur).
-- `isFrereSoeur` : vrai si mêmes deux parents connus.
-- `afficherArbre_rec` : parcours et affichage simple.
-- `afficherArbreGraphique` : rendu arborescent ASCII façon commande `tree`.
+#### Résumé
+- Centre du rectangle défini par le `point` hérité
+- Calcul de surface : $L \times l$
+- Calcul de périmètre : $2(L + l)$
 
-# 3 - Utilitaires (fichiers)
+### `Carre`
+Fichier : `include/formeSpecifique/carre.hpp` — implémentation dans `src/formeSpecifique/carre.cpp`.
 
-Fichier : `include/utilitaire_fichier.h` — implémentation dans `src/utilitaire_fichier.cpp`.
-
-#### Prototypes principaux
+Classe carré héritant de `Rectangle` :
 ```cpp
-void ecritureRecursif(Personne* racine, std::ofstream& fichier);
-void enregistrerArbre(Personne* racine, std::string filename);
-Personne* lireArbre(std::string filename);
-u_int16_t genererID();
+class Carre : public Rectangle {
+public:
+    Carre(double longueur, point p);
+    ~Carre();
+};
 ```
 
-#### Résumé des rôles
-- `ecritureRecursif` : sérialise l'arbre en profondeur dans un flux ouvert.
-- `enregistrerArbre` : exporte l'arbre complet vers un fichier texte.
-- `lireArbre` : recharge un arbre depuis un fichier sauvegardé (reconstruction des liens).
-- `genererID` : fournit un identifiant unique simple pour chaque personne créée.
+#### Résumé
+- Héritage : `Carre` est un cas spécial de `Rectangle` où longueur = largeur
+- Constructeur unique : paramètre `longueur` appliqué aux deux dimensions
+- Calcul de surface : $c^2$
+- Calcul de périmètre : $4c$
 
-# 4 - Jeux d'essais / Résultats
+### `Cercle`
+Fichier : `include/formeSpecifique/cercle.hpp` — implémentation dans `src/formeSpecifique/cercle.cpp`.
 
-L'exécution de `./main` réalise une séquence de tests automatiques :
-- création d'un arbre familial d'exemple
-- tests d'affichage (personne puis arbre complet)
-- vérification frère/sœur et ancêtres
-- calcul de hauteur d'arbre
-- vérification de la possibilité de mariage
-- sauvegarde dans `arbreEcriture.txt` puis rechargement et affichage.
-
-Extrait de sortie attendue :
-```
-Nous célébrons aujourd'hui l'union entre JeanDupontetAnnePetit
-... (tests intermédiaires) ...
-Hauteur de l'arbre de Lucas : 3 (Attendu: 3)
-=== Affichage de l'arbre complet (Style Linux) ===
-└── Lucas Dupont (1980)
-    ├── Anne Petit (1955)
-    └── Jean Dupont (1950)
-        ├── Marie Petit (1927)
-        └── Henri Petit (1922)
-
-Arbre enregistre dans 'arbreEcriture.txt'
-Arbre charge avec succes. Apercu :
-└── Lucas Dupont (1980)
-    ├── Anne Petit (1955)
-    └── Jean Dupont (1950)
-        ├── Marie Petit (1927)
-        └── Henri Petit (1922)
+Classe cercle héritant de `Forme` :
+```cpp
+class Cercle : public Forme {
+protected:
+    double _rayon;
+public:
+    Cercle(point p, double r);
+    ~Cercle();
+    
+    double getRayon() const;
+    void setRayon(double NewR);
+    
+    virtual double perimetre();   // 2 * PI * rayon
+    virtual double surface();     // PI * rayon^2
+};
 ```
 
-# 5 - Points clés / limites
-- Consanguinité contrôlée uniquement via ancêtres directs et fratrie.
-- Les parents inconnus sont laissés à `nullptr` et affichés comme « INCONNU ».
-- La génération d'ID est locale au run (pas de persistance d'un compteur externe).
+#### Résumé
+- Rayon `_rayon` comme attribut principal
+- Utilise $\pi = 3.14$
+- Calcul de surface : $\pi r^2$
+- Calcul de périmètre : $2\pi r$
+
+### `ListeForme`
+Fichier : `include/listeforme.hpp` — implémentation dans `src/listeforme.cpp`.
+
+Classe conteneur polymorphe :
+```cpp
+class ListeForme {
+private:
+    vector<Forme*> _listeForme;
+public:
+    ListeForme();
+    ~ListeForme();
+    
+    void addForme(Forme* f);
+    void suprForme(unsigned int nb);
+    Forme* getForme(unsigned int nb);
+    
+    double surface();        // Somme des surfaces
+    Rectangle boite();       // Rectangle englobant
+};
+```
+
+#### Résumé
+- Stockage polymorphe : `std::vector<Forme*>`
+- `surface()` : agrégation des surfaces de toutes les formes
+- `boite()` : calcul d'une boîte englobante (Rectangle) à partir des limites min/max de toutes les formes
+
+# 3 - Jeux d'essais avec Unity
+
+Fichier : `test/testClass.cpp`.
+
+Nous utilisons le framework **Unity** pour réaliser des tests unitaires automatisés.
+
+### Organisation des tests
+- **setUp/tearDown** : appelés avant/après chaque test (isolation)
+- **Assertions** : macros `TEST_ASSERT_EQUAL_INT`, `TEST_ASSERT_EQUAL_FLOAT`, etc.
+- **Granularité** : un test par fonctionnalité
+
+### Couverture des tests
+
+#### Tests `point`
+- `test_point_initialization` : constructeurs par défaut et paramétré
+- `test_point_copy_constructor` : copie
+- `test_point_setters` : modification des coordonnées
+- `test_point_translation` : translation par addition
+
+#### Tests `Rectangle`
+- `test_rectangle_logic` : dimensions, surface, périmètre
+- `test_rectangle_translation` : translation via `operator+=`
+
+#### Tests `Carre`
+- `test_carre_logic` : cohérence longueur/largeur, surface, périmètre
+- `test_carre_display` : affichage (flux ostream)
+
+#### Tests `Cercle`
+- `test_cercle_initialization` : rayon et position
+- `test_cercle_geometry` : surface et périmètre
+- `test_cercle_translation` : translation
+
+#### Tests `ListeForme`
+- `test_liste_ajout_et_surface` : ajout de formes et calcul de surface totale
+- `test_liste_suppression` : suppression avec libération mémoire
+- `test_liste_boite_englobante` : calcul de la boîte englobante
+
+### Lancer les tests
+
+```bash
+make all
+./testClass
+```
+
+### Résultats
+
+Tous les tests passent avec succès, validant la robustesse de notre implémentation.
+
+# 4 - Points clés / limites
+
+- **Héritage** : `Carre` hérite de `Rectangle` (cas spécial où longueur = largeur), maximisant la réutilisation de code.
+- **Polymorphisme** : `ListeForme` stocke des pointeurs `Forme*` et appelle les bonnes méthodes `surface()` et `perimetre()` via dispatch virtuel.
+- **Gestion mémoire** : `suprForme()` libère explicitement la mémoire avec `delete` avant suppression du vecteur.
+- **Constante PI** : définie globalement à 3.14 dans `cercle.hpp` pour les calculs de cercle.
+- **Translation polymorphe** : l'opérateur `operator+=` hérit de `Forme` et permet de déplacer n'importe quelle forme.
+- **Boîte englobante** : `boite()` calcule les limites min/max de toutes les formes (y compris cercles avec rayon).
