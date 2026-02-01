@@ -178,7 +178,7 @@ public:
 #### Résumé
 - Stockage polymorphe : `std::vector<Forme*>`
 - `surface()` : agrégation des surfaces de toutes les formes
-- `boite()` : calcul d'une boîte englobante (Rectangle) à partir des limites min/max de toutes les formes
+- `boite()` : calcul d'une boîte englobante (Rectangle) de toutes les formes consécutives et allignées sur un axe.
 
 # 3 - Jeux d'essais avec Unity
 
