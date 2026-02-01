@@ -33,7 +33,7 @@ public:
      * 
      * @return int 
      */
-    virtual int getLongueur() const;
+    int getLongueur() const;
 
     /**
      * @brief Get the Largeur rectangle
@@ -47,7 +47,7 @@ public:
      * 
      * @param NewL
      */
-    virtual void setLongueur(int NewL);
+    void setLongueur(int NewL);
 
 
     /**
@@ -66,7 +66,7 @@ public:
     virtual double perimetre();   
 
     /**
-     * @brief 
+     * @brie
      * 
      * @return double 
      */
